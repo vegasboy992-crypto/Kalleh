@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سفارش‌یار ویزیتور</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Vazirmatn',Tahoma,sans-serif;background:#f2f5f4;color:#1c2b2a;min-height:100vh}
+header{background:linear-gradient(135deg,#0e7a5f,#0a5c48);color:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+header h1{font-size:1.15rem}
+.badge{font-size:.72rem;background:rgba(255,255,255,.18);padding:4px 10px;border-radius:99px;margin-inline-start:6px}
+nav{display:flex;gap:6px;padding:10px 12px;overflow-x:auto;background:#fff;border-bottom:1px solid #e3e8e6;position:sticky;top:56px;z-index:4}
+nav button{flex-shrink:0;border:none;background:#eef3f1;padding:9px 14px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:.85rem;color:#345}
+nav button.active{background:#0e7a5f;color:#fff;font-weight:700}
+main{max-width:760px;margin:0 auto;padding:14px 12px 80px}
+.card{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card h2{font-size:.95rem;margin-bottom:12px;color:#0a5c48}
+input,select{width:100%;padding:10px 12px;border:1.5px solid #d6e0dc;border-radius:10px;font-family:inherit;font-size:.9rem;background:#fbfdfc}
+input:focus,select:focus{outline:none;border-color:#0e7a5f}
+.stack>*{margin-bottom:10px}
+label{display:block;font-size:.85rem;color:#456}
+label input{margin-top:6px}
+.row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:.92rem;gap:10px}
+.row input{width:90px;text-align:center}
+.row.final{border-top:2px dashed #dbe6e2;margin-top:6px;padding-top:12px;font-size:1.05rem}
+.row.final b{color:#0e7a5f}
+button.btn,button.btn-primary,button.btn-geo,button.btn-danger{border:none;border-radius:10px;padding:11px 16px;font-family:inherit;cursor:pointer;font-size:.9rem}
+.btn{background:#eef3f1;color:#234}
+.btn-primary{background:#0e7a5f;color:#fff;width:100%;font-weight:700;margin-top:10px}
+.btn-geo{background:#e8f0ff;color:#1a4fa0}
+.btn-danger{background:#fdeaea;color:#a33}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.btnrow .btn{flex:1;min-width:130px}
+.muted{color:#789;font-size:.83rem;line-height:1.9}
+.hint{background:#fff8e6;border:1px solid #f3e2ad;color:#8a6d1a;border-radius:10px;padding:8px 12px;font-size:.82rem;margin-bottom:10px}
+.ok{background:#e8f5ee;border:1px solid #bfe3cd;color:#1c6b3c;border-radius:10px;padding:8px 12px;font-size:.82rem;margin-bottom:10px}
+table.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:10px}
+.tbl th{background:#eef3f1;padding:8px 6px;text-align:right;font-size:.78rem}
+.tbl td{padding:8px 6px;border-bottom:1px solid #eef2f0;vertical-align:middle}
+.tbl input{padding:6px;text-align:center;width:70px}
+.disc-in{width:60px !important}
+.price-in{width:110px !important}
+.sr-item{display:flex;justify-content:space-between;align-items:center;background:#f7faf9;border:1px solid #e2eae7;border-radius:10px;padding:9px 12px;margin-bottom:8px}
+.sr-add{background:#0e7a5f;color:#fff;border:none;border-radius:8px;padding:7px 14px;cursor:pointer;font-family:inherit}
+.del{background:none;border:none;color:#c0392b;cursor:pointer;font-size:1.05rem}
+.chip{display:inline-block;background:#e8f5f1;color:#0a5c48;border-radius:99px;padding:2px 10px;font-size:.75rem;margin-inline-start:6px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.stat{background:#fff;border-radius:14px;padding:14px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.stat .n{font-size:1.3rem;font-weight:800;color:#0e7a5f}
+.stat .l{font-size:.75rem;color:#789;margin-top:4px}
+.order-card,.acard{background:#fff;border-radius:14px;padding:14px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06);font-size:.86rem}
+.order-card .top{display:flex;justify-content:space-between;margin-bottom:8px}
+.order-card .top b{color:#0a5c48}
+.order-card .meta{color:#667;line-height:2}
+.order-card .items{background:#f7faf9;border-radius:10px;padding:8px 12px;margin:8px 0;line-height:2.1;font-size:.82rem}
+.order-card .money{display:flex;justify-content:space-between;border-top:1px dashed #dbe6e2;padding-top:8px;margin-top:4px}
+.order-card .money b{color:#0e7a5f}
+.acard{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.empty{text-align:center;color:#9ab;padding:30px 10px;font-size:.9rem}
+a{color:#0e7a5f}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(80px);background:#1c2b2a;color:#fff;padding:11px 22px;border-radius:99px;font-size:.85rem;opacity:0;transition:.3s;z-index:99;max-width:90%;text-align:center}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#receipt{display:none}
+@media print{body>*{display:none !important}#receipt{display:block !important;position:absolute;inset:0;padding:20px;line-height:2}#receipt table{width:100%;border-collapse:collapse;margin:10px 0}#receipt th,#receipt td{border:1px solid #999;padding:6px}}
+</style>
+</head>
+<body>
+<header><h1>🧾 سفارش‌یار</h1><div><span class="badge">v10 کامل</span><span id="visitorBadge" class="badge"></span></div></header>
+<nav>
+<button data-tab="dash" class="active">🏠 داشبورد</button>
+<button data-tab="today">📅 امروز</button>
+<button data-tab="new">🛒 سفارش جدید</button>
+<button data-tab="catalog">📋 کاتالوگ</button>
+<button data-tab="customers">🏪 مغازه‌ها</button>
+<button data-tab="orders">🗂 سفارش‌ها</button>
+<button data-tab="settings">⚙️ تنظیمات</button>
+</nav>
+<main>
+<section id="tab-dash"></section>
+<section id="tab-today" hidden></section>
+<section id="tab-new" hidden>
+<div class="card"><h2>🏪 مغازه / خریدار</h2>
+<input id="custSearch" placeholder="🔍 جستجو: نام / کد / تلفن..." oninput="renderCustSearch()">
+<div id="custResults" style="margin-top:8px"></div>
+<select id="custSelect" onchange="onCustomerSelect(this.value)" style="margin-top:8px"></select>
+<div id="newCustBox" hidden class="stack" style="margin-top:10px">
+<input id="ncName" placeholder="نام مغازه جدید">
+<input id="ncPhone" placeholder="تلفن">
+<input id="ncCode" placeholder="کد مشتری">
+</div>
+<div id="custInfo" class="muted" style="margin-top:8px" hidden></div></div>
+<div class="card"><h2>📍 موقعیت</h2>
+<button onclick="grabGeo()" class="btn-geo">📡 ثبت موقعیت فعلی</button>
+<div id="geoBox" class="muted" style="margin-top:8px">ثبت نشده</div></div>
+<div class="card"><h2>🛍 کالاها (تخفیف جداگانه هر ردیف)</h2>
+<input id="prodSearch" placeholder="🔍 جستجوی کالا..." oninput="renderSearch()">
+<div id="searchResults" style="margin-top:8px"></div>
+<div id="cartWrap" style="overflow-x:auto"></div></div>
+<div class="card"><h2>🧮 تسویه</h2>
+<div id="discHint" class="hint" hidden></div>
+<div class="row"><span>جمع خام:</span><b id="sumTotal">۰</b></div>
+<div class="row"><span>تخفیف کالاها:</span><b id="sumItemDisc">۰</b></div>
+<div class="row"><span>جمع پس از تخفیف کالا:</span><b id="sumNet">۰</b></div>
+<div class="row">تخفیف کلی٪:<input id="discInput" type="number" min="0" max="100" value="0" oninput="updateTotals()"></div>
+<div class="row"><span>مبلغ تخفیف کلی:</span><b id="sumDisc">۰</b></div>
+<div class="row final"><span>مبلغ نهایی:</span><b id="sumFinal">۰</b></div>
+<button onclick="submitOrder()" class="btn-primary">✅ ثبت سفارش</button>
+<div id="srvMsg" class="muted" style="margin-top:8px"></div></div>
+</section>
+<section id="tab-catalog"></section>
+<section id="tab-customers"></section>
+<section id="tab-orders"></section>
+<section id="tab-settings" hidden>
+<div class="card"><h2>👤 ویزیتور</h2><div class="stack"><label>نام<input id="stName"></label><label>کد<input id="stCode"></label></div><button onclick="saveSettings()" class="btn-primary">ذخیره</button></div>
+<div class="card"><h2>🌐 اتصال به سرور</h2>
+<div id="srvStatus" class="muted" style="margin-bottom:8px"></div>
+<div class="stack"><label>آدرس server.php<input id="stServer" dir="ltr" placeholder="https://yourdomain.com/server.php"></label><label>کلید امنیتی<input id="stKey" dir="ltr" placeholder="12345"></label></div>
+<div class="btnrow"><button onclick="saveServer()" class="btn">💾 ذخیره سرور</button><button onclick="testServer()" class="btn">🔌 تست اتصال</button></div>
+<div class="btnrow" style="margin-top:8px"><button onclick="syncToServer()" class="btn">☁️ ارسال همه به سرور</button><button onclick="pullFromServer()" class="btn">⬇️ دریافت از سرور</button></div></div>
+<div class="card"><h2>💾 بکاپ</h2><div class="btnrow"><button onclick="exportJSON()" class="btn">بکاپ JSON</button><button onclick="document.getElementById('importFile').click()" class="btn">بازیابی</button><button onclick="exportCSV()" class="btn">خروجی CSV</button></div></div>
+<div class="card"><h2>🗑 پاک‌سازی</h2><button onclick="wipeAll()" class="btn-danger">حذف همه داده‌ها</button></div>
+</section>
+</main>
+<div id="receipt"></div><div id="toast"></div>
+<input type="file" id="importFile" accept=".json" hidden onchange="importJSON(this)">
+<script>
+'use strict';
+var LS_KEY='safarshyar_v5';
+var memStore=null, cart=[], orderGeo=null, manualGeo=null, currentCustomer='', newCust=false;
+var state=load();
+function storeGet(){try{return localStorage.getItem(LS_KEY)}catch(e){return memStore}}
+function storeSet(v){try{localStorage.setItem(LS_KEY,v)}catch(e){memStore=v}}
+function load(){var s=null;try{s=JSON.parse(storeGet())}catch(e){s=null}if(s&&Array.isArray(s.products)){if(!s.server)s.server={url:'',key:''};if(!s.dailyDiscount)s.dailyDiscount={percent:0,note:''};return s}return {settings:{visitorName:'',visitorCode:''},server:{url:'',key:''},products:[],customers:[],orders:[],orderSeq:1,dailyDiscount:{percent:0,note:''}}}
+function save(){storeSet(JSON.stringify(state))}
+function el(id){return document.getElementById(id)}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')}
+function fa(n){return Number(n||0).toLocaleString('fa-IR')}
+function toman(n){return fa(n)+' تومان'}
+var dateFmt=new Intl.DateTimeFormat('fa-IR',{year:'numeric',month:'2-digit',day:'2-digit'});
+var timeFmt=new Intl.DateTimeFormat('fa-IR',{hour:'2-digit',minute:'2-digit'});
+function todayFa(d){return dateFmt.format(d||new Date())}
+function timeFa(d){return timeFmt.format(d||new Date())}
+function toast(m){var t=el('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove('show')},2600)}
+function switchTab(t){var ids=['dash','today','new','catalog','customers','orders','settings'];for(var i=0;i<ids.length;i++)el('tab-'+ids[i]).hidden=(ids[i]!==t);var b=document.querySelectorAll('nav button');for(var j=0;j<b.length;j++)b[j].classList.toggle('active',b[j].getAttribute('data-tab')===t);if(t==='dash')renderDash();else if(t==='today')renderToday();else if(t==='new')renderNewOrder();else if(t==='catalog')renderCatalog();else if(t==='customers')renderCustomers();else if(t==='orders')renderOrders();else if(t==='settings')renderSettings()}
+function bindNav(){var b=document.querySelectorAll('nav button');for(var i=0;i<b.length;i++)(function(x){x.onclick=function(){switchTab(x.getAttribute('data-tab'))}})(b[i])}
+function srvConfigured(){return state.server&&state.server.url&&state.server.url.indexOf('http')===0}
+async function api(action,payload){var r=await fetch(state.server.url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:action,key:state.server.key||'',payload:payload||{}})});return await r.json()}
+async function testServer(){if(!srvConfigured()){toast('اول آدرس سرور را وارد کنید');return}toast('در حال تست...');try{var r=await api('ping');toast(r.ok?'اتصال برقرار است ✅':'خطا: '+(r.msg||''))}catch(e){toast('وصل نشد')}}
+async function syncToServer(silent){if(!srvConfigured()){if(!silent)toast('سرور تنظیم نشده — فقط در گوشی ماند');return{ok:false}}try{if(!silent)toast('در حال ارسال...');var r=await api('push',{orders:state.orders,customers:state.customers,products:state.products,orderSeq:state.orderSeq});if(r.ok){if(!silent)toast('در سرور ذخیره شد ☁️✅');var m=el('srvMsg');if(m&&!el('tab-new').hidden)m.innerHTML='<div class="ok">☁️ در سرور هم ثبت شد</div>'}else if(!silent)toast('خطای سرور');return r}catch(e){if(!silent)toast('اینترنت نیست — در گوشی ماند');return{ok:false}}}
+async function pullFromServer(){if(!srvConfigured()){toast('سرور تنظیم نشده');return}toast('در حال دریافت...');try{var r=await api('pull');if(r.ok&&r.data){state.orders=r.data.orders||[];state.customers=r.data.customers||[];state.products=r.data.products||[];state.orderSeq=r.data.orderSeq||1;save();toast('دریافت شد ✅');switchTab('dash')}else toast('داده‌ای نیست')}catch(e){toast('دریافت نشد')}}
+function saveServer(){state.server={url:el('stServer').value.trim(),key:el('stKey').value.trim()};save();renderSettings();toast('ذخیره شد ✅')}
+function renderDash(){var t=todayFa();var n=0,sum=0,i;for(i=0;i<state.orders.length;i++)if(state.orders[i].date===t){n++;sum+=state.orders[i].finalTotal}var d=state.dailyDiscount;var recent='';for(i=0;i<Math.min(4,state.orders.length);i++){var o=state.orders[i];recent+='<div class="row"><span><b>'+esc(o.customerName)+'</b> — '+esc(o.date)+'</span><b>'+toman(o.finalTotal)+'</b></div>'}el('tab-dash').innerHTML='<div class="stat-grid"><div class="stat"><div class="n">'+fa(n)+'</div><div class="l">سفارش امروز</div></div><div class="stat"><div class="n">'+fa(sum)+'</div><div class="l">فروش امروز</div></div><div class="stat"><div class="n">'+fa(state.orders.length)+'</div><div class="l">کل سفارش‌ها</div></div><div class="stat"><div class="n">'+fa(state.customers.length)+'</div><div class="l">مغازه‌ها</div></div></div><div class="card"><h2>☁️ سرور</h2><div class="muted">'+(srvConfigured()?esc(state.server.url):'تنظیم نشده')+'</div><div class="btnrow" style="margin-top:8px"><button class="btn" onclick="syncToServer()">☁️ ارسال به سرور</button><button class="btn" onclick="switchTab(\'new\')">➕ سفارش جدید</button></div></div><div class="card"><h2>📌 امروز</h2><div class="row"><span>تخفیف:</span><b>'+(d.percent?fa(d.percent)+'٪':'—')+'</b></div></div><div class="card"><h2>🆕 آخرین سفارش‌ها</h2>'+(recent||'<div class="empty">سفارشی نیست</div>')+'</div>'}
+function itemText(it){var g=it.price*it.qty;var t=esc(it.name)+' × '+fa(it.qty)+' = '+fa(g);if(it.disc&&+it.disc>0){var nn=Math.round(g*(100-it.disc)/100);t+=' (−'+fa(it.disc)+'٪ → '+fa(nn)+')'}return t}
+function orderCard(o,full){var h='';for(var i=0;i<o.items.length;i++){h+=itemText(o.items[i]);if(i<o.items.length-1)h+='<br>'}return '<div class="order-card"><div class="top"><b>سفارش #'+fa(o.no)+'</b><span class="muted">'+esc(full?(o.date+' '+o.time):o.time)+'</span></div><div class="meta">🏪 <b>'+esc(o.customerName)+'</b>'+(o.customerCode?' — '+esc(o.customerCode):'')+(o.customerPhone?'<br>📞 <a href="tel:'+esc(o.customerPhone)+'">'+esc(o.customerPhone)+'</a>':'')+(o.lat?'<br>📍 <a href="https://www.google.com/maps?q='+o.lat+','+o.lng+'" target="_blank">نقشه</a>':'<br>📍 بدون موقعیت')+'<br>👤 '+esc(o.visitor||'—')+'</div><div class="items">'+h+'</div><div class="money"><span>'+toman(o.total)+((o.itemDiscount)?' −'+fa(o.itemDiscount):'')+((o.discount)?' ('+fa(o.discount)+'٪)':'')+'</span><b>'+toman(o.finalTotal)+'</b></div><div class="btnrow" style="margin-top:8px"><button class="btn" onclick="printReceipt(\''+o.id+'\')">🖨 چاپ</button></div></div>'}
+function renderToday(){var t=todayFa();var h='',n=0,sum=0;for(var i=0;i<state.orders.length;i++)if(state.orders[i].date===t){n++;sum+=state.orders[i].finalTotal;h+=orderCard(state.orders[i],false)}el('tab-today').innerHTML='<div class="stat-grid"><div class="stat"><div class="n">'+fa(n)+'</div><div class="l">امروز</div></div><div class="stat"><div class="n">'+fa(sum)+'</div><div class="l">فروش</div></div></div><div class="card"><h2>📅 '+t+'</h2>'+(h||'<div class="empty">سفارشی نیست</div>')+'<button class="btn-primary" onclick="switchTab(\'new\')">➕ ثبت سفارش</button></div>'}
+function renderCatalog(){var d=state.dailyDiscount;el('tab-catalog').innerHTML='<div class="card"><h2>💸 تخفیف روز</h2><div class="row">درصد: <input type="number" id="ddPercent" min="0" max="100" value="'+d.percent+'" style="width:80px"></div><input id="ddNote" value="'+esc(d.note)+'" style="margin:8px 0" placeholder="یادداشت"><button class="btn-primary" onclick="setDiscount()">ذخیره</button></div><div class="card"><h2>➕ افزودن کالا</h2><div class="stack"><input id="pName" placeholder="نام کالا"><div style="display:flex;gap:8px"><input id="pCode" placeholder="کد"><input id="pUnit" placeholder="واحد"></div><input id="pPrice" type="number" placeholder="قیمت (تومان)"><button class="btn-primary" onclick="addProduct()">افزودن به کاتالوگ</button></div></div><div class="card"><h2>📋 قیمت‌ها</h2><input id="catSearch" placeholder="🔍 جستجو..." oninput="filterCatalog(this.value)" style="margin-bottom:8px"><div id="catalogList"></div></div>';renderCatalogList('')}
+function renderCatalogList(q){var r='';for(var i=0;i<state.products.length;i++){var p=state.products[i];if(q&&(p.name.indexOf(q)<0&&String(p.code).indexOf(q)<0))continue;r+='<tr><td><b>'+esc(p.name)+'</b><br><span class="muted">'+esc(p.code||'')+(p.unit?' — '+esc(p.unit):'')+'</span></td><td><input class="price-in" type="number" value="'+p.price+'" onchange="updatePrice(\''+p.id+'\',this.value)"></td><td class="muted">'+esc(p.priceDate||'—')+'</td><td><button class="del" onclick="delProduct(\''+p.id+'\')">🗑</button></td></tr>'}el('catalogList').innerHTML=r?'<table class="tbl"><tr><th>کالا</th><th>قیمت</th><th>بروزرسانی</th><th></th></tr>'+r+'</table>':'<div class="empty">کالایی نیست</div>'}
+function filterCatalog(q){renderCatalogList(String(q||'').trim())}
+function addProduct(){var n=el('pName').value.trim();if(!n){toast('نام را بنویسید');return}state.products.push({id:uid(),name:n,code:el('pCode').value.trim(),unit:el('pUnit').value.trim(),price:+el('pPrice').value||0,priceDate:todayFa()});save();syncToServer(true);renderCatalogList('');toast('اضافه شد ✅')}
+function updatePrice(id,v){for(var i=0;i<state.products.length;i++)if(state.products[i].id===id){state.products[i].price=+v||0;state.products[i].priceDate=todayFa()}save();syncToServer(true);toast('ثبت شد ✅')}
+function delProduct(id){if(!confirm('حذف شود؟'))return;state.products=state.products.filter(function(p){return p.id!==id});save();syncToServer(true);renderCatalogList('')}
+function setDiscount(){state.dailyDiscount={percent:+el('ddPercent').value||0,note:el('ddNote').value.trim()};save();toast('ذخیره شد ✅')}
+function renderCustomers(){el('tab-customers').innerHTML='<div class="card"><h2>➕ افزودن دستی مغازه (بدون سفارش)</h2><div class="stack"><input id="mcName" placeholder="نام مغازه *"><div style="display:flex;gap:8px"><input id="mcPhone" placeholder="تلفن"><input id="mcCode" placeholder="کد مشتری"></div><input id="mcAddress" placeholder="آدرس"><button onclick="grabManualGeo()" class="btn-geo">📡 ثبت موقعیت مغازه</button><div id="manualGeoBox" class="muted">'+(manualGeo?('✅ '+manualGeo.lat+','+manualGeo.lng):'موقعیتی ثبت نشده')+'</div><button class="btn-primary" onclick="saveManualCustomer()">💾 ذخیره مغازه</button></div></div><div class="card"><h2>🏪 دفترچه ('+fa(state.customers.length)+')</h2><input id="custBookSearch" placeholder="🔍 جستجو: نام / کد / تلفن..." oninput="renderCustBookList(this.value)" style="margin-bottom:8px"><div id="custBookList"></div></div>';renderCustBookList('')}
+function renderCustBookList(q){var box=el('custBookList');if(!box)return;var h='';for(var i=0;i<state.customers.length;i++){var c=state.customers[i];if(q&&((c.name||'').indexOf(q)<0&&(c.code||'').indexOf(q)<0&&(c.phone||'').indexOf(q)<0))continue;var cnt=0;for(var k=0;k<state.orders.length;k++)if(state.orders[k].customerId===c.id)cnt++;h+='<div class="acard"><div><b>'+esc(c.name)+'</b>'+(c.code?'<span class="chip">'+esc(c.code)+'</span>':'')+'<div class="muted">📞 '+esc(c.phone||'—')+' — '+fa(cnt)+' سفارش'+(c.address?'<br>🏠 '+esc(c.address):'')+(c.lat?'<br>📍 <a href="https://www.google.com/maps?q='+c.lat+','+c.lng+'" target="_blank">نقشه</a>':'')+'</div></div><div style="display:flex;flex-direction:column;gap:6px"><button class="sr-add" onclick="orderForCustomer(\''+c.id+'\')">سفارش</button><button class="del" onclick="delCustomer(\''+c.id+'\')">🗑</button></div></div>'}box.innerHTML=h||'<div class="empty">موردی نیست</div>'}
+function grabManualGeo(){if(!navigator.geolocation){toast('پشتیبانی نمی‌شود');return}toast('در حال دریافت...');navigator.geolocation.getCurrentPosition(function(p){manualGeo={lat:+p.coords.latitude.toFixed(6),lng:+p.coords.longitude.toFixed(6)};el('manualGeoBox').textContent='✅ '+manualGeo.lat+','+manualGeo.lng;toast('ثبت شد 📍')},function(){toast('مجوز داده نشد')},{enableHighAccuracy:true,timeout:12000})}
+function saveManualCustomer(){var n=el('mcName').value.trim();if(!n){toast('نام را بنویسید');return}var cd=el('mcCode').value.trim();for(var i=0;i<state.customers.length;i++)if(cd&&state.customers[i].code===cd){toast('کد تکراری است');return}state.customers.push({id:uid(),name:n,phone:el('mcPhone').value.trim(),code:cd,address:el('mcAddress').value.trim(),lat:manualGeo?manualGeo.lat:null,lng:manualGeo?manualGeo.lng:null});save();manualGeo=null;syncToServer(true);renderCustomers();toast('ذخیره شد ✅')}
+function delCustomer(id){if(!confirm('حذف شود؟'))return;state.customers=state.customers.filter(function(c){return c.id!==id});save();syncToServer(true);renderCustomers()}
+function orderForCustomer(id){currentCustomer=id;switchTab('new')}
+function renderNewOrder(){var o='<option value="">— انتخاب مغازه —</option><option value="__new">➕ مغازه جدید...</option>';for(var i=0;i<state.customers.length;i++)o+='<option value="'+state.customers[i].id+'">'+esc(state.customers[i].name)+(state.customers[i].code?' ('+esc(state.customers[i].code)+')':'')+'</option>';el('custSelect').innerHTML=o;if(currentCustomer){var f=false;for(var k=0;k<state.customers.length;k++)if(state.customers[k].id===currentCustomer)f=true;if(f)el('custSelect').value=currentCustomer}el('custSearch').value='';el('custResults').innerHTML='';el('srvMsg').innerHTML='';onCustomerSelect(el('custSelect').value);var d=state.dailyDiscount;if(d.percent){el('discHint').hidden=false;el('discHint').textContent='💡 تخفیف امروز '+fa(d.percent)+'٪'}else el('discHint').hidden=true;updateCart()}
+function normDigits(s){return String(s||'').replace(/[۰-۹]/g,function(c){return '۰۱۲۳۴۵۶۷۸۹'.indexOf(c)}).replace(/[٠-٩]/g,function(c){return '٠١٢٣٤٥٦٧٨٩'.indexOf(c)})}
+function renderCustSearch(){var q=String(el('custSearch').value||'').trim();var box=el('custResults');if(!q){box.innerHTML='';return}var nq=normDigits(q);var h='',n=0;for(var i=0;i<state.customers.length&&n<8;i++){var c=state.customers[i];var hay=(c.name||'')+' '+(c.code||'')+' '+(c.phone||'');if(hay.indexOf(q)<0&&normDigits(hay).indexOf(nq)<0)continue;n++;h+='<div class="sr-item"><span><b>'+esc(c.name)+'</b>'+(c.code?' <span class="muted">'+esc(c.code)+'</span>':'')+'<br><span class="muted">📞 '+esc(c.phone||'—')+'</span></span><button class="sr-add" onclick="pickCustomer(\''+c.id+'\')">انتخاب</button></div>'}box.innerHTML=h||'<div class="empty">پیدا نشد — «مغازه جدید» را انتخاب کنید</div>'}
+function pickCustomer(id){el('custSelect').value=id;onCustomerSelect(id);for(var i=0;i<state.customers.length;i++)if(state.customers[i].id===id)el('custSearch').value=state.customers[i].name;el('custResults').innerHTML=''}
+function onCustomerSelect(v){currentCustomer=(v==='__new')?'':v;newCust=(v==='__new');el('newCustBox').hidden=!newCust;var c=null;for(var i=0;i<state.customers.length;i++)if(state.customers[i].id===v)c=state.customers[i];el('custInfo').hidden=!c;if(c)el('custInfo').innerHTML='📞 '+esc(c.phone||'—')+(c.code?' — کد: '+esc(c.code):'')+(c.address?' — '+esc(c.address):'')+(c.lat?' — <a href="https://www.google.com/maps?q='+c.lat+','+c.lng+'" target="_blank">📍 نقشه</a>':'')}
+function grabGeo(){if(!navigator.geolocation){toast('پشتیبانی نمی‌شود');return}toast('در حال دریافت...');navigator.geolocation.getCurrentPosition(function(p){orderGeo={lat:+p.coords.latitude.toFixed(6),lng:+p.coords.longitude.toFixed(6),acc:Math.round(p.coords.accuracy)};el('geoBox').innerHTML='✅ (±'+fa(orderGeo.acc)+' متر) <a href="https://www.google.com/maps?q='+orderGeo.lat+','+orderGeo.lng+'" target="_blank">نقشه</a>';toast('ثبت شد 📍')},function(){toast('مجوز داده نشد')},{enableHighAccuracy:true,timeout:12000})}
+function renderSearch(){var q=el('prodSearch').value.trim();var box=el('searchResults');if(!q){box.innerHTML='';return}var h='',n=0;for(var i=0;i<state.products.length&&n<6;i++){var p=state.products[i];if(p.name.indexOf(q)<0&&String(p.code).indexOf(q)<0)continue;n++;h+='<div class="sr-item"><span><b>'+esc(p.name)+'</b> <span class="muted">'+esc(p.code||'')+'</span><br><span class="muted">'+toman(p.price)+'</span></span><button class="sr-add" onclick="addToCart(\''+p.id+'\')">+ افزودن</button></div>'}box.innerHTML=h||'<div class="empty">پیدا نشد</div>'}
+function addToCart(pid){var p=null;for(var i=0;i<state.products.length;i++)if(state.products[i].id===pid)p=state.products[i];if(!p)return;var ex=null;for(var k=0;k<cart.length;k++)if(cart[k].pid===pid)ex=cart[k];if(ex)ex.qty++;else cart.push({pid:pid,name:p.name,code:p.code,unit:p.unit,price:p.price,qty:1,disc:0});el('prodSearch').value='';el('searchResults').innerHTML='';updateCart()}
+function chQty(pid,v){for(var i=0;i<cart.length;i++)if(cart[i].pid===pid)cart[i].qty=Math.max(1,+v||1);updateCart()}
+function chDisc(pid,v){v=+v||0;if(v<0)v=0;if(v>100)v=100;for(var i=0;i<cart.length;i++)if(cart[i].pid===pid)cart[i].disc=v;updateTotals()}
+function rmCart(pid){cart=cart.filter(function(x){return x.pid!==pid});updateCart()}
+function lineNet(it){return Math.round(it.price*it.qty*(100-(+it.disc||0))/100)}
+function cartGross(){var s=0;for(var i=0;i<cart.length;i++)s+=cart[i].price*cart[i].qty;return s}
+function cartNet(){var s=0;for(var i=0;i<cart.length;i++)s+=lineNet(cart[i]);return s}
+function updateCart(){var b='';for(var i=0;i<cart.length;i++){var it=cart[i];b+='<tr><td><b>'+esc(it.name)+'</b></td><td>'+fa(it.price)+'</td><td><input class="disc-in" type="number" min="0" max="100" value="'+(+it.disc||0)+'" onchange="chDisc(\''+it.pid+'\',this.value)"></td><td><input type="number" min="1" value="'+it.qty+'" onchange="chQty(\''+it.pid+'\',this.value)"></td><td><b>'+fa(lineNet(it))+'</b></td><td><button class="del" onclick="rmCart(\''+it.pid+'\')">✖</button></td></tr>'}el('cartWrap').innerHTML='<table class="tbl">'+(cart.length?'<tr><th>کالا</th><th>قیمت</th><th>تخفیف٪</th><th>تعداد</th><th>جمع</th><th></th></tr>'+b:'<tr><td class="empty">سبد خالی است</td></tr>')+'</table>';updateTotals()}
+function updateTotals(){var g=cartGross();var n=cartNet();var p=+el('discInput').value||0;var d=Math.round(n*p/100);el('sumTotal').textContent=fa(g);el('sumItemDisc').textContent=fa(g-n);el('sumNet').textContent=fa(n);el('sumDisc').textContent=fa(d);el('sumFinal').textContent=fa(n-d)}
+async function submitOrder(){if(!cart.length){toast('کالایی نیست');return}var name,phone='',code='',cid=null;if(newCust){name=el('ncName').value.trim();if(!name){toast('نام را بنویسید');return}phone=el('ncPhone').value.trim();code=el('ncCode').value.trim();cid=uid();state.customers.push({id:cid,name:name,phone:phone,code:code,address:'',lat:orderGeo?orderGeo.lat:null,lng:orderGeo?orderGeo.lng:null})}else{var c=null;for(var i=0;i<state.customers.length;i++)if(state.customers[i].id===currentCustomer)c=state.customers[i];if(!c){toast('مغازه را انتخاب کنید');return}name=c.name;phone=c.phone;code=c.code;cid=c.id}if(!orderGeo&&!confirm('بدون موقعیت ثبت شود؟'))return;var g=cartGross();var n=cartNet();var pct=+el('discInput').value||0;var da=Math.round(n*pct/100);var items=[];for(var k=0;k<cart.length;k++){var it=cart[k];items.push({name:it.name,code:it.code,unit:it.unit,price:it.price,qty:it.qty,disc:+it.disc||0})}var o={id:uid(),no:state.orderSeq++,customerId:cid,customerName:name,customerPhone:phone,customerCode:code,date:todayFa(),time:timeFa(),lat:orderGeo?orderGeo.lat:null,lng:orderGeo?orderGeo.lng:null,items:items,total:g,itemDiscount:g-n,subtotal:n,discount:pct,discountAmount:da,finalTotal:n-da,visitor:state.settings.visitorName||'',visitorCode:state.settings.visitorCode||''};state.orders.unshift(o);save();cart=[];orderGeo=null;el('geoBox').textContent='ثبت نشده';el('discInput').value=0;toast('سفارش '+fa(o.no)+' ثبت شد ✅');syncToServer(true);printReceipt(o.id);switchTab('dash')}
+function renderOrders(){var h='';for(var i=0;i<state.orders.length;i++){var o=state.orders[i];h+=orderCard(o,true)+'<div style="text-align:left;margin:-4px 0 12px"><button class="btn-danger" onclick="delOrder(\''+o.id+'\')">🗑 حذف سفارش #'+fa(o.no)+'</button></div>'}el('tab-orders').innerHTML='<div class="btnrow" style="margin-bottom:12px"><button class="btn" onclick="exportCSV()">⬇️ خروجی CSV</button><button class="btn" onclick="syncToServer()">☁️ ارسال به سرور</button></div>'+(h||'<div class="empty">سفارشی نیست</div>')}
+function delOrder(id){if(!confirm('حذف شود؟'))return;state.orders=state.orders.filter(function(x){return x.id!==id});save();syncToServer(true);renderOrders()}
+function printReceipt(id){var o=null;for(var i=0;i<state.orders.length;i++)if(state.orders[i].id===id)o=state.orders[i];if(!o)return;var r='';for(var k=0;k<o.items.length;k++){var it=o.items[k];var nn=Math.round(it.price*it.qty*(100-(+it.disc||0))/100);r+='<tr><td>'+esc(it.name)+'</td><td>'+fa(it.price)+'</td><td>'+fa(it.qty)+'</td><td>'+fa(it.disc||0)+'%</td><td>'+fa(nn)+'</td></tr>'}el('receipt').innerHTML='<h2 style="text-align:center">رسید سفارش '+fa(o.no)+'</h2><p>تاریخ: '+esc(o.date)+' ساعت: '+esc(o.time)+'<br>خریدار: '+esc(o.customerName)+' تلفن: '+esc(o.customerPhone||'—')+'<br>ویزیتور: '+esc(o.visitor||'—')+'<br>موقعیت: '+(o.lat?(o.lat+','+o.lng):'—')+'</p><table><tr><th>کالا</th><th>قیمت</th><th>تعداد</th><th>تخفیف</th><th>جمع</th></tr>'+r+'<tr><td colspan="4">جمع خام</td><td>'+fa(o.total)+'</td></tr>'+(o.itemDiscount?'<tr><td colspan="4">تخفیف کالاها</td><td>−'+fa(o.itemDiscount)+'</td></tr>':'')+(o.discount?'<tr><td colspan="4">تخفیف کلی '+fa(o.discount)+'٪</td><td>−'+fa(o.discountAmount)+'</td></tr>':'')+'<tr><td colspan="4"><b>نهایی</b></td><td><b>'+fa(o.finalTotal)+'</b></td></tr></table><p style="text-align:center">با تشکر 🌹</p>';window.print()}
+function renderSettings(){el('stName').value=state.settings.visitorName||'';el('stCode').value=state.settings.visitorCode||'';el('stServer').value=(state.server&&state.server.url)||'';el('stKey').value=(state.server&&state.server.key)||'';el('visitorBadge').textContent=state.settings.visitorName?('👤 '+state.settings.visitorName):'';el('srvStatus').textContent=srvConfigured()?('متصل به: '+state.server.url):'سرور تنظیم نشده — فقط در گوشی ذخیره می‌شود'}
+function saveSettings(){state.settings.visitorName=el('stName').value.trim();state.settings.visitorCode=el('stCode').value.trim();save();renderSettings();toast('ذخیره شد ✅')}
+function download(n,c,t){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([c],{type:t}));a.download=n;a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)}
+function exportJSON(){download('sefareshyar-backup.json',JSON.stringify(state,null,2),'application/json');toast('بکاپ دانلود شد 💾')}
+function importJSON(inp){var f=inp.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var s=JSON.parse(r.result);if(s&&s.products){state=s;if(!state.server)state.server={url:'',key:''};save();switchTab('dash');toast('بازیابی شد ✅')}}catch(e){toast('فایل معتبر نیست')}};r.readAsText(f);inp.value=''}
+function exportCSV(){if(!state.orders.length){toast('سفارشی نیست');return}var L=['"شماره","تاریخ","ساعت","مغازه","کد","تلفن","مختصات","لینک نقشه","اقلام","جمع خام","تخفیف کالاها","تخفیف کلی٪","مبلغ تخفیف","نهایی","ویزیتور"'];for(var k=0;k<state.orders.length;k++){var o=state.orders[k];var tx='';for(var i=0;i<o.items.length;i++){tx+=o.items[i].name+' x'+o.items[i].qty+(o.items[i].disc?' (-'+o.items[i].disc+'%)':'');if(i<o.items.length-1)tx+=' | '}var cells=[o.no,o.date,o.time,o.customerName,o.customerCode||'',o.customerPhone||'',(o.lat?o.lat+','+o.lng:''),(o.lat?('https://www.google.com/maps?q='+o.lat+','+o.lng):''),tx,o.total,(o.itemDiscount||0),o.discount,o.discountAmount,o.finalTotal,o.visitor||''];var line='';for(var j=0;j<cells.length;j++){line+='"'+String(cells[j]).replace(/"/g,'""')+'"';if(j<cells.length-1)line+=','}L.push(line)}download('orders.csv','﻿'+L.join('\r\n'),'text/csv;charset=utf-8');toast('CSV آماده شد 📊')}
+function wipeAll(){if(!confirm('همه داده‌ها حذف شود؟'))return;if(!confirm('مطمئنید؟ اول بکاپ بگیرید!'))return;try{localStorage.removeItem(LS_KEY)}catch(e){}memStore=null;state=load();cart=[];orderGeo=null;manualGeo=null;currentCustomer='';toast('پاک شد');switchTab('dash')}
+function init(){bindNav();renderSettings();switchTab('dash')}
+try{init()}catch(e){}
+</script>
+</body>
+</html>
